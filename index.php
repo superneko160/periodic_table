@@ -1,6 +1,7 @@
 <?php
 require_once('PeriodicTable.php');
-$periodic_table = new PeriodicTable();
+require_once('CodeInfo.php');
+$periodic_table = new PeriodicTable(CodeInfo::ELEMENTS_FILE);
 $elms = $periodic_table->shapingElements();
 ?>
 <!DOCTYPE html>

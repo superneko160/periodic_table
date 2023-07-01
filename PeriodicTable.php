@@ -1,14 +1,23 @@
 <?php
+require_once('Common.php');
+
+// 元素表クラス
 class PeriodicTable {
-    // 元素データ
-    private $elements = [
-        "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc",
-        "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb", "Sr", "Y", "Zr", "Nb",
-        "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In", "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm",
-        "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl",
-        "Pb", "Bi", "Po", "At", "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk", "Cf", "Es", "Fm", "Md",
-        "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt", "Ds", "Rg", "Cn", "Nh", "Fl", "Mc", "Lv", "Ts", "Og"
-    ];
+    private $elements_file = "";  // 元素データのJSONファイル
+    private $elements = [];  // 元素データ
+
+    /**
+     * コンストラクタ
+     * @param string elements_file 読み込むJSONファイル
+     */
+    function __construct(string $elements_file) {
+        $this->elements_file = $elements_file;
+        try {
+            $this->elements = Common::readJSONFileToArray($this->elements_file);
+        } catch (Exception $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
 
     /**
      * 元素データの整形
@@ -100,4 +109,5 @@ class PeriodicTable {
     private function getElmIndex(string $search_elm, array $data): int {
         return array_search($search_elm, $data);
     }
+
 }
